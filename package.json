@@ -1,0 +1,40 @@
+{
+  "name": "skill-card",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Paste a Hermes/OpenClaw SKILL.md and get a pretty shareable one-pager card (PNG).",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smfworks/skill-card.git"
+  },
+  "homepage": "https://smfworks.com",
+  "bugs": {
+    "url": "https://github.com/smfworks/skill-card/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "node --experimental-strip-types --test src/lib/yaml.test.ts src/lib/parse.test.ts"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fontsource/space-grotesk": "^5.3.0",
+    "html-to-image": "^1.11.13",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0"
+  }
+}
