@@ -890,3 +890,9 @@ body.shot-og .page {
 body.shot-og textarea {
   min-height: 120px;
 }
+
+
+.handoff-error {
+  color: var(--ember-soft);
+  font-size: 12px;
+}
