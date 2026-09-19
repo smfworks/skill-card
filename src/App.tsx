@@ -7,6 +7,7 @@ import { Actions } from "./components/Actions";
 import { Composer } from "./components/Composer";
 import { Header } from "./components/Header";
 import { SisterStrip } from "./components/SisterStrip";
+import { HandoffBanner } from "./components/HandoffBanner";
 import { SkillCard } from "./components/SkillCard";
 import { Toast } from "./components/Toast";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -161,7 +162,8 @@ export default function App() {
     <div className="page">
       <div className="ambient" aria-hidden="true" />
       <Header />
-      <SisterStrip current="skill-card" />
+      <SisterStrip current="skill-card" payload={raw} />
+      <HandoffBanner onPaste={(text) => { setRaw(text); setSampleId(null); }} />
       <main className="layout">
         <Composer
           raw={raw}
