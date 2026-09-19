@@ -1,6 +1,6 @@
 import { SAMPLES } from "./data/samples";
 import { composeCard, slugify } from "./lib/parse";
-import { copyText, downloadBlob, cardToPngBlob } from "./lib/exportImage";
+import { copyText, downloadBlob, cardToPngBlob, shareTextAndPng } from "./lib/exportImage";
 import { formatCompactStats, formatShareText } from "./lib/share";
 import type { SkillCardModel } from "./types";
 import { Actions } from "./components/Actions";
@@ -135,14 +135,22 @@ export default function App() {
     if (!card) return;
     setBusy("share");
     try {
-      await copyText(formatShareText(card));
-      showToast("Share text copied.");
+      const text = formatShareText(card);
+      const filename = `skill-card-${slugify(card.name ?? card.title)}.png`;
+      if (frameRef.current && typeof navigator.share === "function") {
+        const blob = await withFrame();
+        const mode = await shareTextAndPng(text, blob, filename, card.title);
+        showToast(mode === "shared" ? "Shared card." : "Share text copied.");
+      } else {
+        await copyText(text);
+        showToast("Share text copied.");
+      }
     } catch {
-      showToast("Could not copy share text.");
+      showToast("Could not share.");
     } finally {
       setBusy(null);
     }
-  }, [card, showToast]);
+  }, [card, showToast, withFrame]);
 
   const live = useMemo(() => {
     if (!card) return "Waiting for a SKILL.md";
@@ -153,7 +161,7 @@ export default function App() {
     <div className="page">
       <div className="ambient" aria-hidden="true" />
       <Header />
-      <SisterStrip />
+      <SisterStrip current="skill-card" />
       <main className="layout">
         <Composer
           raw={raw}
