@@ -43,6 +43,25 @@ export async function copyImageBlob(blob: Blob): Promise<void> {
   }
 }
 
+export async function shareTextAndPng(
+  text: string,
+  blob: Blob,
+  filename: string,
+  title: string,
+): Promise<"shared" | "copied"> {
+  const file = new File([blob], filename, { type: "image/png" });
+  const canShare =
+    typeof navigator.share === "function" &&
+    typeof navigator.canShare === "function" &&
+    navigator.canShare({ files: [file], text, title });
+  if (canShare) {
+    await navigator.share({ files: [file], text, title });
+    return "shared";
+  }
+  await copyText(text);
+  return "copied";
+}
+
 export async function copyText(text: string): Promise<void> {
   if (navigator.clipboard?.writeText) {
     await navigator.clipboard.writeText(text);

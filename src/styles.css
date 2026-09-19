@@ -125,11 +125,21 @@ a:hover {
   font-size: 15px;
 }
 
+.kit-nav {
+  margin-bottom: 24px;
+}
+
 .sisters {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
+}
+
+.kit-next {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
 }
 
 .sisters a,
